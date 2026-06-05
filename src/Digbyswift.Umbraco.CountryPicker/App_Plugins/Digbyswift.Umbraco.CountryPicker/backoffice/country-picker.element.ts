@@ -1,0 +1,347 @@
+import { LitElement, html, css, nothing } from '@umbraco-cms/backoffice/external/lit';
+import { customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
+import type { UmbPropertyEditorUiElement } from '@umbraco-cms/backoffice/property-editor';
+import { countries } from './countries';
+import type { Country } from './country.model';
+import { CountryPickerConfigurationRepository } from './country-picker-configuration.repository';
+
+type PickerValue = string | string[] | null;
+
+@customElement('digbyswift-country-picker')
+export class CountryPickerElement extends LitElement implements UmbPropertyEditorUiElement {
+    @property({ type: Object })
+    public value: PickerValue = null;
+
+    @property({ type: Array })
+    public config: Array<{ alias: string; value: unknown }> = [];
+
+    @property({ type: Boolean })
+    public readonly = false;
+
+    @state()
+    private isOpen = false;
+
+    @state()
+    private searchTerm = '';
+
+    @state()
+    private workingValue: string[] = [];
+
+    @state()
+    private flagBasePath = '/App_Plugins/Digbyswift.CountryPicker/assets/flags';
+
+    public override async connectedCallback(): Promise<void> {
+        super.connectedCallback();
+
+        const configuration = await CountryPickerConfigurationRepository.get();
+        this.flagBasePath = configuration.flagBasePath;
+    }
+
+    private get multiple(): boolean {
+        return this.config?.find(x => x.alias === 'multiple')?.value === true;
+    }
+
+    private get selectedCodes(): string[] {
+        if (Array.isArray(this.value)) {
+            return this.value;
+        }
+
+        return this.value ? [this.value] : [];
+    }
+
+    private get selectedCountries(): Country[] {
+        const selected = new Set(this.selectedCodes);
+
+        return countries.filter(country => selected.has(country.code));
+    }
+
+    private get filteredCountries(): Country[] {
+        const term = this.searchTerm.trim().toLowerCase();
+
+        if (!term) {
+            return countries;
+        }
+
+        return countries.filter(country =>
+            country.name.toLowerCase().includes(term) ||
+            country.code.toLowerCase().includes(term) ||
+            country.code3.toLowerCase().includes(term)
+        );
+    }
+
+    public override render() {
+        return html`
+            <div class="selected">
+                ${this.selectedCountries.length
+                    ? this.selectedCountries.map(country => this.renderSelectedCountry(country))
+                    : html`<span class="empty">No countries selected</span>`}
+            </div>
+
+            ${this.readonly
+                ? nothing
+                : html`
+                    <uui-button
+                        look="placeholder"
+                        label=${this.selectedCountries.length ? 'Add or change countries' : 'Add country'}
+                        @click=${this.openPicker}>
+                        ${this.selectedCountries.length ? 'Add / change' : 'Add'}
+                    </uui-button>
+                `}
+
+            ${this.isOpen ? this.renderSidebar() : nothing}
+        `;
+    }
+
+    private renderSelectedCountry(country: Country) {
+        return html`
+            <div class="selected-country">
+                <img src=${this.getFlagUrl(country.code)} alt="" loading="lazy" />
+                <span>${country.name}</span>
+                <small>${country.code}</small>
+
+                ${this.readonly
+                    ? nothing
+                    : html`
+                        <uui-button
+                            compact
+                            look="secondary"
+                            label="Remove ${country.name}"
+                            @click=${() => this.removeCountry(country.code)}>
+                            Remove
+                        </uui-button>
+                    `}
+            </div>
+        `;
+    }
+
+    private renderSidebar() {
+        return html`
+            <div class="overlay" @click=${this.closePicker}></div>
+
+            <aside class="sidebar" role="dialog" aria-modal="true" aria-label="Select countries">
+                <header>
+                    <h3>Select ${this.multiple ? 'countries' : 'country'}</h3>
+
+                    <uui-button
+                        compact
+                        look="secondary"
+                        label="Close"
+                        @click=${this.closePicker}>
+                        Close
+                    </uui-button>
+                </header>
+
+                <uui-input
+                    class="search"
+                    label="Search countries"
+                    placeholder="Search by name, GB, GBR..."
+                    .value=${this.searchTerm}
+                    @input=${this.onSearchInput}>
+                </uui-input>
+
+                <div class="list">
+                    ${this.filteredCountries.map(country => this.renderCountryOption(country))}
+                </div>
+
+                ${this.multiple
+                    ? html`
+                        <footer>
+                            <span>${this.workingValue.length} selected</span>
+
+                            <div class="footer-actions">
+                                <uui-button look="secondary" label="Cancel" @click=${this.closePicker}>
+                                    Cancel
+                                </uui-button>
+
+                                <uui-button look="primary" color="positive" label="Submit" @click=${this.submitMultiple}>
+                                    Submit
+                                </uui-button>
+                            </div>
+                        </footer>
+                    `
+                    : nothing}
+            </aside>
+        `;
+    }
+
+    private renderCountryOption(country: Country) {
+        const checked = this.workingValue.includes(country.code);
+
+        return html`
+            <button class="country-option" type="button" @click=${() => this.selectCountry(country.code)}>
+                ${this.multiple
+                    ? html`<uui-checkbox .checked=${checked}></uui-checkbox>`
+                    : nothing}
+
+                <img src=${this.getFlagUrl(country.code)} alt="" loading="lazy" />
+
+                <span>${country.name}</span>
+                <small>${country.code}</small>
+                <small>${country.code3}</small>
+            </button>
+        `;
+    }
+
+    private getFlagUrl(code: string): string {
+        return `${this.flagBasePath}/${code.toLowerCase()}.svg`;
+    }
+
+    private openPicker = () => {
+        this.workingValue = [...this.selectedCodes];
+        this.searchTerm = '';
+        this.isOpen = true;
+    };
+
+    private closePicker = () => {
+        this.isOpen = false;
+    };
+
+    private onSearchInput = (event: InputEvent) => {
+        const input = event.target as HTMLInputElement;
+        this.searchTerm = input.value;
+    };
+
+    private selectCountry(code: string) {
+        if (!this.multiple) {
+            this.value = code;
+            this.dispatchChange();
+            this.closePicker();
+            return;
+        }
+
+        this.workingValue = this.workingValue.includes(code)
+            ? this.workingValue.filter(x => x !== code)
+            : [...this.workingValue, code];
+    }
+
+    private submitMultiple = () => {
+        this.value = this.workingValue;
+        this.dispatchChange();
+        this.closePicker();
+    };
+
+    private removeCountry(code: string) {
+        if (this.multiple) {
+            this.value = this.selectedCodes.filter(x => x !== code);
+        } else {
+            this.value = null;
+        }
+
+        this.dispatchChange();
+    }
+
+    private dispatchChange() {
+        this.dispatchEvent(new CustomEvent('change', { bubbles: true, composed: true }));
+    }
+
+    static styles = css`
+        .selected {
+            display: flex;
+            flex-direction: column;
+            gap: var(--uui-size-space-3);
+            margin-bottom: var(--uui-size-space-4);
+        }
+
+        .empty {
+            color: var(--uui-color-text-alt);
+        }
+
+        .selected-country,
+        .country-option {
+            display: grid;
+            grid-template-columns: 24px 1fr auto auto;
+            align-items: center;
+            gap: var(--uui-size-space-3);
+        }
+
+        .selected-country {
+            padding: var(--uui-size-space-3);
+            border: 1px solid var(--uui-color-border);
+            border-radius: var(--uui-border-radius);
+        }
+
+        img {
+            width: 24px;
+            height: 18px;
+            object-fit: cover;
+            border: 1px solid var(--uui-color-border);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 10000;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 10001;
+            width: 420px;
+            max-width: 100vw;
+            height: 100vh;
+            background: var(--uui-color-surface);
+            box-shadow: var(--uui-shadow-depth-5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        header,
+        footer {
+            padding: var(--uui-size-space-5);
+            border-bottom: 1px solid var(--uui-color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--uui-size-space-4);
+        }
+
+        footer {
+            border-top: 1px solid var(--uui-color-border);
+            border-bottom: 0;
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: var(--uui-size-space-3);
+        }
+
+        .search {
+            margin: var(--uui-size-space-5);
+        }
+
+        .list {
+            overflow: auto;
+            padding: 0 var(--uui-size-space-5) var(--uui-size-space-5);
+        }
+
+        .country-option {
+            width: 100%;
+            border: 0;
+            background: transparent;
+            text-align: left;
+            cursor: pointer;
+            padding: var(--uui-size-space-3);
+            border-radius: var(--uui-border-radius);
+            color: var(--uui-color-text);
+        }
+
+        .country-option:hover {
+            background: var(--uui-color-surface-emphasis);
+        }
+
+        small {
+            color: var(--uui-color-text-alt);
+        }
+    `;
+}
+
+export default CountryPickerElement;
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'digbyswift-country-picker': CountryPickerElement;
+    }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "Digbyswift Country Flag Picker",
+  "version": "1.0.0",
+  "extensions": [
+    {
+      "type": "propertyEditorUi",
+      "alias": "Digbyswift.CountryPicker.Ui",
+      "name": "Country Flag Picker UI",
+      "element": "/App_Plugins/Digbyswift.CountryPicker/backoffice/country-picker.element.js",
+      "meta": {
+        "label": "Country Flag Picker",
+        "propertyEditorSchemaAlias": "Digbyswift.CountryPicker",
+        "icon": "icon-flag",
+        "group": "pickers",
+        "supportsReadOnly": true
+      }
+    },
+    {
+      "type": "propertyEditorSchema",
+      "alias": "Digbyswift.CountryPicker",
+      "name": "Country Flag Picker",
+      "meta": {
+        "defaultPropertyEditorUiAlias": "Digbyswift.CountryPicker.Ui",
+        "settings": {
+          "properties": [
+            {
+              "alias": "multiple",
+              "label": "Allow multiple",
+              "description": "Allow editors to select more than one country.",
+              "propertyEditorUiAlias": "Umb.PropertyEditorUi.Toggle"
+            }
+          ],
+          "defaultData": [
+            {
+              "alias": "multiple",
+              "value": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
