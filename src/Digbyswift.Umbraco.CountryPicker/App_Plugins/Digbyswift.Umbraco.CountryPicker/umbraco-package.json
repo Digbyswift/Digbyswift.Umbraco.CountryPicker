@@ -1,16 +1,16 @@
 {
   "$schema": "../../umbraco-package-schema.json",
-  "name": "Digbyswift Country Flag Picker",
+  "name": "Digbyswift Country Picker",
   "version": "1.0.0",
   "extensions": [
     {
       "type": "propertyEditorUi",
-      "alias": "Digbyswift.CountryPicker.Ui",
-      "name": "Country Flag Picker UI",
-      "element": "/App_Plugins/Digbyswift.CountryPicker/backoffice/country-picker.element.js",
+      "alias": "Digbyswift.Umbraco.CountryPicker.Ui",
+      "name": "Country Picker UI",
+      "element": "/App_Plugins/Digbyswift.Umbraco.CountryPicker/backoffice/country-picker.element.js",
       "meta": {
-        "label": "Country Flag Picker",
-        "propertyEditorSchemaAlias": "Digbyswift.CountryPicker",
+        "label": "Country Picker",
+        "propertyEditorSchemaAlias": "Digbyswift.Umbraco.CountryPicker",
         "icon": "icon-flag",
         "group": "pickers",
         "supportsReadOnly": true
@@ -18,10 +18,10 @@
     },
     {
       "type": "propertyEditorSchema",
-      "alias": "Digbyswift.CountryPicker",
-      "name": "Country Flag Picker",
+      "alias": "Digbyswift.Umbraco.CountryPicker",
+      "name": "Country Picker",
       "meta": {
-        "defaultPropertyEditorUiAlias": "Digbyswift.CountryPicker.Ui",
+        "defaultPropertyEditorUiAlias": "Digbyswift.Umbraco.CountryPicker.Ui",
         "settings": {
           "properties": [
             {

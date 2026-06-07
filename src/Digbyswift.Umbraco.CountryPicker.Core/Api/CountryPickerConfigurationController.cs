@@ -15,7 +15,7 @@ public sealed class CountryPickerConfigurationController : ManagementApiControll
 
     public CountryPickerConfigurationController(IOptions<CountryPickerOptions> options)
     {
-        this._options = options.Value;
+        _options = options.Value;
     }
 
     [HttpGet("configuration")]
@@ -24,7 +24,7 @@ public sealed class CountryPickerConfigurationController : ManagementApiControll
     {
         return Ok(new CountryPickerConfigurationResponse
         {
-            FlagBasePath = this._options.FlagBasePath.TrimEnd('/')
+            FlagBasePath = _options.FlagBasePath.TrimEnd('/')
         });
     }
 }

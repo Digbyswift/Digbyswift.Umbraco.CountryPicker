@@ -1,5 +1,5 @@
-import { LitElement, html, css, nothing } from '@umbraco-cms/backoffice/external/lit';
-import { customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
+import { html, css, nothing, customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
+import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
 import type { UmbPropertyEditorUiElement } from '@umbraco-cms/backoffice/property-editor';
 import { countries } from './countries';
 import type { Country } from './country.model';
@@ -8,7 +8,7 @@ import { CountryPickerConfigurationRepository } from './country-picker-configura
 type PickerValue = string | string[] | null;
 
 @customElement('digbyswift-country-picker')
-export class CountryPickerElement extends LitElement implements UmbPropertyEditorUiElement {
+export default class CountryPickerElement extends UmbLitElement {
     @property({ type: Object })
     public value: PickerValue = null;
 
@@ -28,7 +28,7 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
     private workingValue: string[] = [];
 
     @state()
-    private flagBasePath = '/App_Plugins/Digbyswift.CountryPicker/assets/flags';
+    private flagBasePath = '/App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags';
 
     public override async connectedCallback(): Promise<void> {
         super.connectedCallback();
@@ -73,20 +73,22 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
         return html`
             <div class="selected">
                 ${this.selectedCountries.length
-                    ? this.selectedCountries.map(country => this.renderSelectedCountry(country))
-                    : html`<span class="empty">No countries selected</span>`}
+            ? this.selectedCountries.map(country => this.renderSelectedCountry(country))
+            : nothing}
             </div>
 
             ${this.readonly
                 ? nothing
-                : html`
-                    <uui-button
-                        look="placeholder"
-                        label=${this.selectedCountries.length ? 'Add or change countries' : 'Add country'}
-                        @click=${this.openPicker}>
-                        ${this.selectedCountries.length ? 'Add / change' : 'Add'}
-                    </uui-button>
-                `}
+                : !this.selectedCountries.length || this.multiple 
+                    ? html`
+                        <uui-button
+                            look="placeholder"
+                            label=${this.selectedCountries.length ? 'Add or change countries' : 'Add country'}
+                            @click=${this.openPicker}>
+                            ${this.selectedCountries.length ? 'Change' : 'Add'}
+                        </uui-button>
+                    `
+                    : nothing}
 
             ${this.isOpen ? this.renderSidebar() : nothing}
         `;
@@ -95,13 +97,12 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
     private renderSelectedCountry(country: Country) {
         return html`
             <div class="selected-country">
-                <img src=${this.getFlagUrl(country.code)} alt="" loading="lazy" />
-                <span>${country.name}</span>
-                <small>${country.code}</small>
+                <img src=${this.getFlagUrl(country.code)} alt="Flag of ${country.name}" loading="lazy" />
+                <span>${country.name} <small>(${country.code})</small></span>
 
                 ${this.readonly
-                    ? nothing
-                    : html`
+            ? nothing
+            : html`
                         <uui-button
                             compact
                             look="secondary"
@@ -144,7 +145,7 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
                 </div>
 
                 ${this.multiple
-                    ? html`
+            ? html`
                         <footer>
                             <span>${this.workingValue.length} selected</span>
 
@@ -159,7 +160,7 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
                             </div>
                         </footer>
                     `
-                    : nothing}
+            : nothing}
             </aside>
         `;
     }
@@ -170,14 +171,13 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
         return html`
             <button class="country-option" type="button" @click=${() => this.selectCountry(country.code)}>
                 ${this.multiple
-                    ? html`<uui-checkbox .checked=${checked}></uui-checkbox>`
-                    : nothing}
+            ? html`<uui-checkbox .checked=${checked}></uui-checkbox>`
+            : nothing}
 
                 <img src=${this.getFlagUrl(country.code)} alt="" loading="lazy" />
 
                 <span>${country.name}</span>
                 <small>${country.code}</small>
-                <small>${country.code3}</small>
             </button>
         `;
     }
@@ -321,7 +321,7 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
             width: 100%;
             border: 0;
             background: transparent;
-            text-align: left;
+            text-align: right;
             cursor: pointer;
             padding: var(--uui-size-space-3);
             border-radius: var(--uui-border-radius);
@@ -337,8 +337,6 @@ export class CountryPickerElement extends LitElement implements UmbPropertyEdito
         }
     `;
 }
-
-export default CountryPickerElement;
 
 declare global {
     interface HTMLElementTagNameMap {

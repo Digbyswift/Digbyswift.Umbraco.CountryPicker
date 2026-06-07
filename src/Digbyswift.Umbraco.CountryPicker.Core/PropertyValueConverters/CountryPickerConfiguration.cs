@@ -1,4 +1,4 @@
-namespace Digbyswift.Umbraco.CountryPicker.Core.PropertyEditors;
+namespace Digbyswift.Umbraco.CountryPicker.Core.PropertyValueConverters;
 
 public sealed class CountryPickerConfiguration
 {

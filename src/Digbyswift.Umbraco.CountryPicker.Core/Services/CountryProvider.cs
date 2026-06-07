@@ -12,8 +12,8 @@ public sealed class CountryProvider : ICountryProvider
 
     public CountryProvider(IOptions<CountryPickerOptions> options)
     {
-        this._options = options.Value;
-        this._regions = new Lazy<IReadOnlyDictionary<string, RegionInfo>>(CreateRegionDictionary);
+        _options = options.Value;
+        _regions = new Lazy<IReadOnlyDictionary<string, RegionInfo>>(CreateRegionDictionary);
     }
 
     public Country? GetByCode(string code)
@@ -23,16 +23,16 @@ public sealed class CountryProvider : ICountryProvider
             return null;
         }
 
-        return this._regions.Value.TryGetValue(code.Trim(), out var region)
-            ? this.CreateCountry(region)
+        return _regions.Value.TryGetValue(code.Trim(), out var region)
+            ? CreateCountry(region)
             : null;
     }
 
     public IReadOnlyCollection<Country> GetAll()
     {
-        return this._regions.Value.Values
+        return _regions.Value.Values
             .OrderBy(x => x.EnglishName)
-            .Select(this.CreateCountry)
+            .Select(CreateCountry)
             .ToArray();
     }
 
@@ -62,15 +62,15 @@ public sealed class CountryProvider : ICountryProvider
             Code = region.TwoLetterISORegionName,
             Code3 = region.ThreeLetterISORegionName,
             Name = region.EnglishName,
-            Flag = this.BuildFlagUrl(region.TwoLetterISORegionName)
+            Flag = BuildFlagUrl(region.TwoLetterISORegionName)
         };
     }
 
     private string BuildFlagUrl(string code)
     {
-        var basePath = String.IsNullOrWhiteSpace(this._options.FlagBasePath)
-            ? "/App_Plugins/Digbyswift.CountryPicker/assets/flags"
-            : this._options.FlagBasePath.TrimEnd('/');
+        var basePath = String.IsNullOrWhiteSpace(_options.FlagBasePath)
+            ? "/App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags"
+            : _options.FlagBasePath.TrimEnd('/');
 
         return $"{basePath}/{code.ToLowerInvariant()}.svg";
     }

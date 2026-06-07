@@ -25,7 +25,7 @@ The property value converter resolves selected codes to:
   "code": "GB",
   "code3": "GBR",
   "name": "United Kingdom",
-  "flag": "/App_Plugins/Digbyswift.CountryPicker/assets/flags/gb.svg"
+  "flag": "/App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags/gb.svg"
 }
 ```
 
@@ -35,7 +35,7 @@ The property value converter resolves selected codes to:
 {
   "Digbyswift": {
     "CountryPicker": {
-      "FlagBasePath": "/App_Plugins/Digbyswift.CountryPicker/assets/flags"
+      "FlagBasePath": "/App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags"
     }
   }
 }
@@ -58,7 +58,7 @@ npm run build
 This outputs:
 
 ```text
-App_Plugins/Digbyswift.CountryPicker/backoffice/country-picker.element.js
+App_Plugins/Digbyswift.Umbraco.CountryPicker/backoffice/country-picker.element.js
 ```
 
 ## Flags
@@ -66,7 +66,7 @@ App_Plugins/Digbyswift.CountryPicker/backoffice/country-picker.element.js
 Copy SVG files into:
 
 ```text
-App_Plugins/Digbyswift.CountryPicker/assets/flags/
+App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags/
 ```
 
 Filenames must be lowercase ISO alpha-2 codes, e.g. `gb.svg`.

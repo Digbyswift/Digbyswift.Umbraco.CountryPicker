@@ -10,6 +10,6 @@
     "noEmit": true
   },
   "include": [
-    "App_Plugins/Digbyswift.CountryPicker/backoffice/**/*.ts"
+    "App_Plugins/Digbyswift.Umbraco.CountryPicker/backoffice/**/*.ts"
   ]
 }
