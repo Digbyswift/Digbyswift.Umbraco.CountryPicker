@@ -20,10 +20,10 @@
   <Target Name="ExcludeCountryPickerTypeScriptFromPackage"
           BeforeTargets="_GetPackageFiles;GenerateNuspec">
     <ItemGroup>
-      <Content Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
-      <None Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
-      <Compile Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
-      <_PackageFiles Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <Content Remove="**\appsettings-schema.Umbraco.Cms.json;**\*schema.json;**\tsconfig.json;**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <None Remove="**\appsettings-schema.Umbraco.Cms.json;**\*schema.json;**\tsconfig.json;**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <Compile Remove="**\appsettings-schema.Umbraco.Cms.json;**\*schema.json;**\tsconfig.json;**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <_PackageFiles Remove="**\appsettings-schema.Umbraco.Cms.json;**\*schema.json;**\tsconfig.json;**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
     </ItemGroup>
   </Target>
 </Project>
