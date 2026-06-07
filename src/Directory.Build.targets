@@ -1,0 +1,29 @@
+<Project>
+  <PropertyGroup>
+    <CountryPickerFrontendRoot Condition="'$(CountryPickerFrontendRoot)' == '' And Exists('$(MSBuildProjectDirectory)\package.json')">$(MSBuildProjectDirectory)</CountryPickerFrontendRoot>
+  </PropertyGroup>
+
+  <Target Name="BuildCountryPickerFrontend"
+          BeforeTargets="GenerateNuspec"
+          Condition="'$(IsPackable)' != 'false' And '$(CountryPickerFrontendRoot)' != ''">
+    <Message Text="Building CountryPicker frontend before packing NuGet package." Importance="high" />
+    <Exec WorkingDirectory="$(CountryPickerFrontendRoot)"
+          Command="npm ci"
+          Condition="!Exists('$(CountryPickerFrontendRoot)\node_modules') And Exists('$(CountryPickerFrontendRoot)\package-lock.json')" />
+    <Exec WorkingDirectory="$(CountryPickerFrontendRoot)"
+          Command="npm install"
+          Condition="!Exists('$(CountryPickerFrontendRoot)\node_modules') And !Exists('$(CountryPickerFrontendRoot)\package-lock.json')" />
+    <Exec WorkingDirectory="$(CountryPickerFrontendRoot)"
+          Command="npm run build" />
+  </Target>
+
+  <Target Name="ExcludeCountryPickerTypeScriptFromPackage"
+          BeforeTargets="_GetPackageFiles;GenerateNuspec">
+    <ItemGroup>
+      <Content Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <None Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <Compile Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+      <_PackageFiles Remove="**\*.ts;**\*.tsx;**\*.tsbuildinfo;**\*.map" />
+    </ItemGroup>
+  </Target>
+</Project>
