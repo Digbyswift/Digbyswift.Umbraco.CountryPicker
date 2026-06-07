@@ -352,3 +352,4 @@ MigrationBackup/
 # Project specific
 **/.idea
 *.DotSettings
+src/Umbraco.Cms.v17.x/App_Plugins/
