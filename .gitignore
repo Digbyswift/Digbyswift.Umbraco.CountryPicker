@@ -353,3 +353,4 @@ MigrationBackup/
 **/.idea
 *.DotSettings
 src/Umbraco.Cms.v17.x/App_Plugins/
+src/Digbyswift.Umbraco.CountryPicker/wwwroot/

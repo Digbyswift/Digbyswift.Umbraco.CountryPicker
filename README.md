@@ -1,9 +1,9 @@
-# Digbyswift.Umbraco.SeoEditor
+# Digbyswift.Umbraco.CountryPicker
 
-[![NuGet version (Digbyswift.Digbyswift.Umbraco.SeoEditor)](https://img.shields.io/nuget/v/Digbyswift.Umbraco.SeoEditor.svg)](https://www.nuget.org/packages/Digbyswift.Umbraco.SeoEditor/)
+[![NuGet version (Digbyswift.Digbyswift.Umbraco.CountryPicker)](https://img.shields.io/nuget/v/Digbyswift.Umbraco.CountryPicker.svg)](https://www.nuget.org/packages/Digbyswift.Umbraco.CountryPicker/)
 [![Build and publish package](https://github.com/Digbyswift/Digbyswift.Umbraco.SeoEditor/actions/workflows/dotnet-build-publish.yml/badge.svg)](https://github.com/Digbyswift/Digbyswift.Umbraco.SeoEditor/actions/workflows/dotnet-build-publish.yml)
 
-A property editor for metadata, largely inspired by the v7 SeoMetadata package.
+A property editor for picking countries, their codes and flags.
 
 
 ## Compatibility

@@ -1,10 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <ContentTargetFolders>.</ContentTargetFolders>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Digbyswift.Umbraco.CountryPicker</RootNamespace>
+        <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>Digbyswift.Umbraco.CountryPicker</Title>
         <Authors>Digbyswift Ltd</Authors>
         <Copyright>Copyright © Digbyswift Ltd</Copyright>
@@ -14,7 +17,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>A property editor for selecting a country by name and flag. Returns an object containing country name, ISO codes and SVG flag data.</PackageReleaseNotes>
         <PackageTags>c# umbraco</PackageTags>
-        <PackageVersion>17.0.0-preview0</PackageVersion>
+        <PackageVersion>17.0.0-beta2</PackageVersion>
         <AssemblyVersion>17.0.0</AssemblyVersion>
         <FileVersion>17.0.0</FileVersion>
         <PackageIcon>package-icon.png</PackageIcon>
@@ -23,6 +26,9 @@
         <Description>A property editor for selecting a country by name and flag. Returns an object containing country name, ISO codes and SVG flag data.</Description>
         <LangVersion>default</LangVersion>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
     <ItemGroup>
         <Content Include="App_Plugins\Digbyswift.Umbraco.CountryPicker\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
@@ -36,6 +42,8 @@
       <PackageReference Include="Umbraco.Cms" Version="17.0.0" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Digbyswift.Umbraco.CountryPicker.Core\Digbyswift.Umbraco.CountryPicker.Core.csproj" />
+        <ProjectReference Include="..\Digbyswift.Umbraco.CountryPicker.Client\Digbyswift.Umbraco.CountryPicker.Client.csproj">
+            <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+        </ProjectReference>
     </ItemGroup>
 </Project>
