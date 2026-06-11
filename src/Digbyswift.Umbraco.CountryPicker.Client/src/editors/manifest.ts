@@ -24,12 +24,4 @@ export const manifests: Array<UmbExtensionManifest> = [
             },
         }
     },
-    {
-        type: 'propertyEditorSchema',
-        name: 'Country Picker Property Editor Schema',
-        alias: 'Digbyswift.Umbraco.CountryPicker',
-        meta: {
-            defaultPropertyEditorUiAlias: 'Digbyswift.Umbraco.CountryPicker.Ui',
-        },
-    }
 ];

@@ -58,8 +58,7 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
 
         return countries.filter(country =>
             country.name.toLowerCase().includes(term) ||
-            country.code.toLowerCase().includes(term) ||
-            country.code3.toLowerCase().includes(term)
+            country.code.toLowerCase().includes(term)
         );
     }
 
@@ -136,7 +135,7 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
                 <uui-input
                     class="search"
                     label="Search countries"
-                    placeholder="Search by name, GB, GBR..."
+                    placeholder="Search by name, GB..."
                     .value=${this._searchTerm}
                     @input=${this.onSearchInput}>
                 </uui-input>
