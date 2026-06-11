@@ -63,6 +63,13 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
         );
     }
 
+    private get areFilteredCountriesSelected(): boolean {
+        const selected = new Set(this._workingValue);
+
+        return this.filteredCountries.length > 0 &&
+            this.filteredCountries.every(country => selected.has(country.code));
+    }
+
     public override render() {
         return html`
             <div class="selected">
@@ -134,6 +141,20 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
                     @input=${this.onSearchInput}>
                 </uui-input>
 
+                ${this.isMultiple
+                    ? html`
+                        <div class="bulk-actions">
+                            <uui-button
+                                compact
+                                look="secondary"
+                                label=${this.areFilteredCountriesSelected ? 'Clear all' : 'Select all'}
+                                @click=${this.toggleFilteredCountries}>
+                                ${this.areFilteredCountriesSelected ? 'Clear all' : 'Select all'}
+                            </uui-button>
+                        </div>
+                    `
+                    : nothing}
+
                 <div class="list">
                     ${this.filteredCountries.map(country => this.renderCountryOption(country))}
                 </div>
@@ -180,10 +201,13 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
         return `${this._flagBasePath}/${code.toLowerCase()}.svg`;
     }
 
-    private openPicker = () => {
+    private openPicker = async () => {
         this._workingValue = [...this.selectedCodes];
         this._searchTerm = '';
         this._isOpen = true;
+
+        await this.updateComplete;
+        this.renderRoot.querySelector<HTMLElement>('uui-input.search')?.focus();
     };
 
     private closePicker = () => {
@@ -207,6 +231,17 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
             ? this._workingValue.filter(x => x !== code)
             : [...this._workingValue, code];
     }
+
+    private toggleFilteredCountries = () => {
+        const filteredCodes = this.filteredCountries.map(country => country.code);
+
+        if (this.areFilteredCountriesSelected) {
+            this._workingValue = this._workingValue.filter(code => !filteredCodes.includes(code));
+            return;
+        }
+
+        this._workingValue = [...new Set([...this._workingValue, ...filteredCodes])];
+    };
 
     private submitMultiple = () => {
         this.value = this._workingValue;
@@ -304,6 +339,12 @@ export default class CountryPickerElement extends UmbLitElement implements UmbPr
 
         .search {
             margin: var(--uui-size-space-5);
+        }
+
+        .bulk-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 var(--uui-size-space-5) var(--uui-size-space-4);
         }
 
         .list {

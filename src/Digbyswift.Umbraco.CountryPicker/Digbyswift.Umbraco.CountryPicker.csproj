@@ -21,7 +21,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>A property editor for selecting a country by name and flag. Returns an object containing country name, ISO codes and SVG flag data.</PackageReleaseNotes>
         <PackageTags>c# umbraco</PackageTags>
-        <PackageVersion>17.0.0-beta10</PackageVersion>
+        <PackageVersion>17.0.0-beta11</PackageVersion>
         <AssemblyVersion>17.0.0</AssemblyVersion>
         <FileVersion>17.0.0</FileVersion>
         <PackageIcon>package-icon.png</PackageIcon>
