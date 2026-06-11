@@ -1,5 +1,5 @@
 ﻿export default {
-    clientPluginPath: 'App_Plugins/Digbyswift.Umbraco.CountryPicker',
-    packageProjectStaticAssetsDirectory: '../Digbyswift.Umbraco.CountryPicker/wwwroot',
-    umbracoProjectDirectory: '../Umbraco.Cms.v17.x'
+    clientPluginPath: './src',
+    nugetStaticAssetsPath: '../Digbyswift.Umbraco.CountryPicker/wwwroot/App_Plugins/Digbyswift.Umbraco.CountryPicker',
+    umbracoPluginPath: '../Umbraco.Cms.v17.x/App_Plugins/Digbyswift.Umbraco.CountryPicker'
 }

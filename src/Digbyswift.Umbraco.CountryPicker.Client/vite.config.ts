@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { postBuildCopyToPackage, postBuildCopyToUmbraco } from './vite-plugins';
+import consts from "./vite-consts";
 
 export default defineConfig({
     plugins: [
@@ -8,12 +9,13 @@ export default defineConfig({
     ],
     build: {
         lib: {
-            entry: 'App_Plugins/Digbyswift.Umbraco.CountryPicker/backoffice/country-picker.element.ts',
+            entry: consts.clientPluginPath + '/bundle.manifests.ts',
             formats: ['es'],
-            fileName: () => 'country-picker.element.js'
+            fileName: 'manifests'
         },
-        outDir: '../Digbyswift.Umbraco.CountryPicker/wwwroot/App_Plugins/Digbyswift.Umbraco.CountryPicker',
-        emptyOutDir: false,
+        outDir: consts.nugetStaticAssetsPath,
+        emptyOutDir: true,
+        sourcemap: true,
         rollupOptions: {
             external: [/^@umbraco-cms/]
         }

@@ -10,6 +10,11 @@
     "noEmit": true
   },
   "include": [
-    "App_Plugins/Digbyswift.Umbraco.CountryPicker/backoffice/**/*.ts"
+    "src"
+  ],
+  "types": [
+    "@umbraco-cms/backoffice/extension-registry",
+    "@umbraco-cms/backoffice/icon",
+    "@umbraco-cms/backoffice/localization",
   ]
 }

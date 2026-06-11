@@ -7,7 +7,7 @@ export function postBuildCopyToPackage() {
         closeBundle() {
             fs.cpSync(
                 consts.clientPluginPath + '/assets',
-                consts.packageProjectStaticAssetsDirectory + '/' +  consts.clientPluginPath + '/assets',
+                consts.nugetStaticAssetsPath + '/assets',
                 {
                     recursive: true,
                     filter: source => !source.endsWith('.ts')
@@ -22,8 +22,8 @@ export function postBuildCopyToUmbraco() {
         name: 'copy-to-umbraco',
         closeBundle() {
             fs.cpSync(
-                'App_Plugins',
-                consts.umbracoProjectDirectory + '/App_Plugins',
+                consts.nugetStaticAssetsPath,
+                consts.umbracoPluginPath,
                 {
                     recursive: true,
                     filter: source => !source.endsWith('.ts')

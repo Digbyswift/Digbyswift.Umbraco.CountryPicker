@@ -11,11 +11,6 @@
       <None Include="tsconfig.json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="App_Plugins\Digbyswift.Umbraco.CountryPicker\" />
-      <Folder Include="localization\" />
-    </ItemGroup>
-
     <Target Name="BuildCountryPickerFrontend" BeforeTargets="Build">
         <Message Text="Building CountryPicker frontend" Importance="high" />
         <Exec WorkingDirectory="$(MSBuildProjectDirectory)"

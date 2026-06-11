@@ -1,46 +1,40 @@
 import { html, css, nothing, customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
-import type { UmbPropertyEditorUiElement } from '@umbraco-cms/backoffice/property-editor';
+import type { UmbPropertyEditorUiElement  } from '@umbraco-cms/backoffice/property-editor';
 import { countries } from './countries';
 import type { Country } from './country.model';
-import { CountryPickerConfigurationRepository } from './country-picker-configuration.repository';
 
 type PickerValue = string | string[] | null;
 
 @customElement('digbyswift-country-picker')
-export default class CountryPickerElement extends UmbLitElement {
+export default class CountryPickerElement extends UmbLitElement implements UmbPropertyEditorUiElement {
     @property({ type: Object })
     public value: PickerValue = null;
-
-    @property({ type: Array })
-    public config: Array<{ alias: string; value: unknown }> = [];
 
     @property({ type: Boolean })
     public readonly = false;
 
-    @state()
-    private isOpen = false;
+    @property({ type: Boolean })
+    public isMultiple = false;
 
     @state()
-    private searchTerm = '';
+    private _isOpen = false;
 
     @state()
-    private workingValue: string[] = [];
+    private _searchTerm = '';
 
     @state()
-    private flagBasePath = '/App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags';
+    private _workingValue: string[] = [];
 
-    public override async connectedCallback(): Promise<void> {
-        super.connectedCallback();
+    @state()
+    private _flagBasePath = '/App_Plugins/Digbyswift.Umbraco.CountryPicker/assets/flags';
 
-        const configuration = await CountryPickerConfigurationRepository.get();
-        this.flagBasePath = configuration.flagBasePath;
+    public set config(config: UmbPropertyEditorUiElement['config']) {
+        if (!config) return;
+
+        this.isMultiple = config.find(x => x.alias === 'multiple')?.value === true;
     }
-
-    private get multiple(): boolean {
-        return this.config?.find(x => x.alias === 'multiple')?.value === true;
-    }
-
+    
     private get selectedCodes(): string[] {
         if (Array.isArray(this.value)) {
             return this.value;
@@ -56,7 +50,7 @@ export default class CountryPickerElement extends UmbLitElement {
     }
 
     private get filteredCountries(): Country[] {
-        const term = this.searchTerm.trim().toLowerCase();
+        const term = this._searchTerm.trim().toLowerCase();
 
         if (!term) {
             return countries;
@@ -79,7 +73,7 @@ export default class CountryPickerElement extends UmbLitElement {
 
             ${this.readonly
                 ? nothing
-                : !this.selectedCountries.length || this.multiple 
+                : !this.selectedCountries.length || this.isMultiple 
                     ? html`
                         <uui-button
                             look="placeholder"
@@ -90,7 +84,7 @@ export default class CountryPickerElement extends UmbLitElement {
                     `
                     : nothing}
 
-            ${this.isOpen ? this.renderSidebar() : nothing}
+            ${this._isOpen ? this.renderSidebar() : nothing}
         `;
     }
 
@@ -121,7 +115,7 @@ export default class CountryPickerElement extends UmbLitElement {
 
             <aside class="sidebar" role="dialog" aria-modal="true" aria-label="Select countries">
                 <header>
-                    <h3>Select ${this.multiple ? 'countries' : 'country'}</h3>
+                    <h3>Select ${this.isMultiple ? 'countries' : 'country'}</h3>
 
                     <uui-button
                         compact
@@ -136,7 +130,7 @@ export default class CountryPickerElement extends UmbLitElement {
                     class="search"
                     label="Search countries"
                     placeholder="Search by name, GB, GBR..."
-                    .value=${this.searchTerm}
+                    .value=${this._searchTerm}
                     @input=${this.onSearchInput}>
                 </uui-input>
 
@@ -144,10 +138,10 @@ export default class CountryPickerElement extends UmbLitElement {
                     ${this.filteredCountries.map(country => this.renderCountryOption(country))}
                 </div>
 
-                ${this.multiple
+                ${this.isMultiple
             ? html`
                         <footer>
-                            <span>${this.workingValue.length} selected</span>
+                            <span>${this._workingValue.length} selected</span>
 
                             <div class="footer-actions">
                                 <uui-button look="secondary" label="Cancel" @click=${this.closePicker}>
@@ -166,11 +160,11 @@ export default class CountryPickerElement extends UmbLitElement {
     }
 
     private renderCountryOption(country: Country) {
-        const checked = this.workingValue.includes(country.code);
+        const checked = this._workingValue.includes(country.code);
 
         return html`
             <button class="country-option" type="button" @click=${() => this.selectCountry(country.code)}>
-                ${this.multiple
+                ${this.isMultiple
             ? html`<uui-checkbox .checked=${checked}></uui-checkbox>`
             : nothing}
 
@@ -183,45 +177,45 @@ export default class CountryPickerElement extends UmbLitElement {
     }
 
     private getFlagUrl(code: string): string {
-        return `${this.flagBasePath}/${code.toLowerCase()}.svg`;
+        return `${this._flagBasePath}/${code.toLowerCase()}.svg`;
     }
 
     private openPicker = () => {
-        this.workingValue = [...this.selectedCodes];
-        this.searchTerm = '';
-        this.isOpen = true;
+        this._workingValue = [...this.selectedCodes];
+        this._searchTerm = '';
+        this._isOpen = true;
     };
 
     private closePicker = () => {
-        this.isOpen = false;
+        this._isOpen = false;
     };
 
     private onSearchInput = (event: InputEvent) => {
         const input = event.target as HTMLInputElement;
-        this.searchTerm = input.value;
+        this._searchTerm = input.value;
     };
 
     private selectCountry(code: string) {
-        if (!this.multiple) {
+        if (!this.isMultiple) {
             this.value = code;
             this.dispatchChange();
             this.closePicker();
             return;
         }
 
-        this.workingValue = this.workingValue.includes(code)
-            ? this.workingValue.filter(x => x !== code)
-            : [...this.workingValue, code];
+        this._workingValue = this._workingValue.includes(code)
+            ? this._workingValue.filter(x => x !== code)
+            : [...this._workingValue, code];
     }
 
     private submitMultiple = () => {
-        this.value = this.workingValue;
+        this.value = this._workingValue;
         this.dispatchChange();
         this.closePicker();
     };
 
     private removeCountry(code: string) {
-        if (this.multiple) {
+        if (this.isMultiple) {
             this.value = this.selectedCodes.filter(x => x !== code);
         } else {
             this.value = null;
