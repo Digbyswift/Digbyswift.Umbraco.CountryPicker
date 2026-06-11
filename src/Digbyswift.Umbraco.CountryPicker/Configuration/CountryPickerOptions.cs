@@ -1,4 +1,4 @@
-namespace Digbyswift.Umbraco.CountryPicker.Core.Configuration;
+namespace Digbyswift.Umbraco.CountryPicker.Configuration;
 
 public sealed class CountryPickerOptions
 {

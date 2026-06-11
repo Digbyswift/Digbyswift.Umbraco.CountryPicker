@@ -1,6 +1,6 @@
-using Digbyswift.Umbraco.CountryPicker.Core.Models;
+using Digbyswift.Umbraco.CountryPicker.Models;
 
-namespace Digbyswift.Umbraco.CountryPicker.Core.Services;
+namespace Digbyswift.Umbraco.CountryPicker.Services;
 
 public interface ICountryProvider
 {

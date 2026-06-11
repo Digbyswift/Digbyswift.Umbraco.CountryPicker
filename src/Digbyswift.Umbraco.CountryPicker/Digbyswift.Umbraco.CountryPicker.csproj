@@ -1,49 +1,325 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <RootNamespace>Digbyswift.Umbraco.CountryPicker</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
     </PropertyGroup>
 
     <PropertyGroup>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>Digbyswift.Umbraco.CountryPicker</Title>
-        <Authors>Digbyswift Ltd</Authors>
-        <Copyright>Copyright © Digbyswift Ltd</Copyright>
+        <Company>Digbyswift Ltd</Company>
+        <Authors>$(Company)</Authors>
+        <Copyright>Copyright © $([System.DateTime]::Now.Year) $(Company)</Copyright>
         <PackageProjectUrl>https://github.com/digbyswift/Digbyswift.Umbraco.CountryPicker</PackageProjectUrl>
         <RepositoryUrl>https://github.com/digbyswift/Digbyswift.Umbraco.CountryPicker</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>A property editor for selecting a country by name and flag. Returns an object containing country name, ISO codes and SVG flag data.</PackageReleaseNotes>
         <PackageTags>c# umbraco</PackageTags>
-        <PackageVersion>17.0.0-beta2</PackageVersion>
+        <PackageVersion>17.0.0-beta10</PackageVersion>
         <AssemblyVersion>17.0.0</AssemblyVersion>
         <FileVersion>17.0.0</FileVersion>
         <PackageIcon>package-icon.png</PackageIcon>
         <PackageIconUrl>package-icon.png</PackageIconUrl>
-        <Nullable>enable</Nullable>
         <Description>A property editor for selecting a country by name and flag. Returns an object containing country name, ISO codes and SVG flag data.</Description>
-        <LangVersion>default</LangVersion>
-        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
-    <ItemGroup>
-        <Content Include="App_Plugins\Digbyswift.Umbraco.CountryPicker\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
-    </ItemGroup>
+
     <ItemGroup>
         <None Include="..\..\package-icon.png" Pack="true" PackagePath="" />
         <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
         <None Include="..\..\README.md" Pack="true" PackagePath="" />
     </ItemGroup>
+
     <ItemGroup>
       <PackageReference Include="Umbraco.Cms" Version="17.0.0" />
     </ItemGroup>
+
     <ItemGroup>
         <ProjectReference Include="..\Digbyswift.Umbraco.CountryPicker.Client\Digbyswift.Umbraco.CountryPicker.Client.csproj">
             <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
         </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ad.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ae.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\af.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ag.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ai.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\al.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\am.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ao.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\aq.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ar.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\arab.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\as.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\asean.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\at.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\au.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\aw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ax.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\az.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ba.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bb.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bd.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\be.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bh.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bi.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bj.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bo.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bq.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\br.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bs.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\by.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\bz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ca.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cd.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cefta.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ch.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ci.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ck.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\co.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cp.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cx.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cy.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\cz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\de.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\dg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\dj.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\dk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\dm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\do.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\dz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\eac.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ec.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ee.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\eg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\eh.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\er.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\es-ct.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\es-ga.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\es-pv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\es.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\et.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\eu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\fi.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\fj.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\fk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\fm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\fo.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\fr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ga.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gb-eng.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gb-nir.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gb-sct.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gb-wls.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gb.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gd.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ge.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gh.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gi.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gp.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gq.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gs.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\gy.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\hk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\hm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\hn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\hr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ht.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\hu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ic.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\id.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ie.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\il.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\im.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\in.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\io.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\iq.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ir.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\is.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\it.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\je.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\jm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\jo.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\jp.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ke.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kh.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ki.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\km.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kp.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ky.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\kz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\la.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lb.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\li.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ls.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\lv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ly.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ma.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\md.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\me.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mh.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ml.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mo.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mp.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mq.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ms.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mx.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\my.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\mz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\na.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\nc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ne.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\nf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ng.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ni.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\nl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\no.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\np.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\nr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\nu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\nz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\om.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pa.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pe.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ph.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ps.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\pw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\py.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\qa.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\re.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\README.md" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ro.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\rs.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ru.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\rw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sa.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sb.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sd.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\se.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sh-ac.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sh-hl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sh-ta.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sh.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\si.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sj.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\so.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ss.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\st.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sx.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sy.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\sz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\td.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\th.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tj.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tl.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\to.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tr.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tv.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tw.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\tz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ua.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ug.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\um.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\un.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\us.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\uy.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\uz.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\va.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\vc.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ve.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\vg.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\vi.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\vn.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\vu.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\wf.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ws.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\xk.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\xx.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\ye.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\yt.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\za.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\zm.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\flags\zw.svg" />
     </ItemGroup>
 </Project>

@@ -1,11 +1,10 @@
 using System.Text.Json;
-using Digbyswift.Umbraco.CountryPicker.Core.Models;
-using Digbyswift.Umbraco.CountryPicker.Core.PropertyEditors;
-using Digbyswift.Umbraco.CountryPicker.Core.Services;
+using Digbyswift.Umbraco.CountryPicker.Models;
+using Digbyswift.Umbraco.CountryPicker.Services;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 
-namespace Digbyswift.Umbraco.CountryPicker.Core.PropertyValueConverters;
+namespace Digbyswift.Umbraco.CountryPicker.PropertyValueConverters;
 
 public sealed class CountryPickerValueConverter : PropertyValueConverterBase
 {
@@ -18,7 +17,7 @@ public sealed class CountryPickerValueConverter : PropertyValueConverterBase
 
     public override bool IsConverter(IPublishedPropertyType propertyType)
     {
-        return String.Equals(propertyType.EditorAlias, CountryPickerDataEditor.Alias, StringComparison.OrdinalIgnoreCase);
+        return String.Equals(propertyType.EditorAlias, "Digbyswift.Umbraco.CountryPicker", StringComparison.OrdinalIgnoreCase);
     }
 
     public override Type GetPropertyValueType(IPublishedPropertyType propertyType)

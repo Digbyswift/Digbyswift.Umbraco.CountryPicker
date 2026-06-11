@@ -1,4 +1,4 @@
-namespace Digbyswift.Umbraco.CountryPicker.Core.Models;
+namespace Digbyswift.Umbraco.CountryPicker.Models;
 
 public sealed class Country
 {

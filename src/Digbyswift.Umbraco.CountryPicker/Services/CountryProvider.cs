@@ -1,9 +1,9 @@
 using System.Globalization;
-using Digbyswift.Umbraco.CountryPicker.Core.Configuration;
-using Digbyswift.Umbraco.CountryPicker.Core.Models;
+using Digbyswift.Umbraco.CountryPicker.Configuration;
+using Digbyswift.Umbraco.CountryPicker.Models;
 using Microsoft.Extensions.Options;
 
-namespace Digbyswift.Umbraco.CountryPicker.Core.Services;
+namespace Digbyswift.Umbraco.CountryPicker.Services;
 
 public sealed class CountryProvider : ICountryProvider
 {

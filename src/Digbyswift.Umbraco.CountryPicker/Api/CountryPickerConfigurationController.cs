@@ -1,11 +1,11 @@
-using Digbyswift.Umbraco.CountryPicker.Core.Api.Models;
-using Digbyswift.Umbraco.CountryPicker.Core.Configuration;
+using Digbyswift.Umbraco.CountryPicker.Api.Models;
+using Digbyswift.Umbraco.CountryPicker.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Umbraco.Cms.Api.Management.Controllers;
 
-namespace Digbyswift.Umbraco.CountryPicker.Core.Api;
+namespace Digbyswift.Umbraco.CountryPicker.Api;
 
 [ApiController]
 [Route("umbraco/management/api/v1/digbyswift/country-picker")]
